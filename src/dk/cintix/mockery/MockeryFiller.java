@@ -10,8 +10,12 @@ import dk.cintix.mockery.paqle.mock.KandidateResponse;
 import dk.cintix.mockery.paqle.mock.KandidateResponses;
 import dk.cintix.mockery.paqle.mock.KandidateType;
 import dk.cintix.mockery.paqle.mock.Name;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,12 +63,12 @@ public class MockeryFiller {
             List<KandidateAnswer> answers = new ArrayList<>();
 
             kandidateResponse.setId(id);
-            int kandidateType = (int) (Math.random() * 2);
-
+            
+            int kandidateType = (int) (Math.random() * 3);
             if (kandidateType == 0 || kandidateType == 1) {
-                kandidateResponse.setQuestionnaire(KandidateType.KOMMUNE);
+                kandidateResponse.setArea(KandidateType.KOMMUNE.getValue());
             } else {
-                kandidateResponse.setQuestionnaire(KandidateType.REGION);
+                kandidateResponse.setArea(KandidateType.REGION.getValue());
             }
 
             for (int questionId = 1; questionId < 12; questionId++) {
@@ -81,17 +85,26 @@ public class MockeryFiller {
 
         kandidateList.setKandidates(kandidates);
         kandidateList.setNextPageId(lastId);
-        System.out.println(gson.toJson(kandidateList));
+        saveToFile("kandiates.json",gson.toJson(kandidateList));
 
-        
-        System.out.println();
-        System.out.println();
         
         responses.setNextPageId(2);
         responses.setResponses(kandidateResponses);
-        System.out.println(gson.toJson(responses));
+        saveToFile("kandiate_answers.json", gson.toJson(responses));
         
 
     }
 
+    
+    private void saveToFile(String filename, String data){
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            fos.write(data.getBytes());
+            fos.close();
+        } catch (Exception ex) {
+            Logger.getLogger(MockeryFiller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
 }

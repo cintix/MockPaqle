@@ -29,4 +29,10 @@ public enum KandidateType {
         return UNKNOWN;
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
+    
+
 }

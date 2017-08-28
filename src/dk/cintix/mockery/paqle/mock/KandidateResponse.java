@@ -10,7 +10,7 @@ import java.util.List;
 public class KandidateResponse {
 
     @SerializedName(value = "Questionnaire")
-    private KandidateType Questionnaire;
+    private String area;
 
     @SerializedName(value = "OriginalId")
     private int id;
@@ -26,13 +26,14 @@ public class KandidateResponse {
         this.id = id;
     }
 
-    public KandidateType getQuestionnaire() {
-        return Questionnaire;
+    public String getArea() {
+        return area;
     }
 
-    public void setQuestionnaire(KandidateType Questionnaire) {
-        this.Questionnaire = Questionnaire;
+    public void setArea(String area) {
+        this.area = area;
     }
+
 
     public List<KandidateAnswer> getAnswers() {
         return answers;
@@ -44,7 +45,7 @@ public class KandidateResponse {
 
     @Override
     public String toString() {
-        return "KandidateResponse{" + "Questionnaire=" + Questionnaire + ", id=" + id + ", answers=" + answers + '}';
+        return "KandidateResponse{" + "area=" + area + ", id=" + id + ", answers=" + answers + '}';
     }
 
 }
